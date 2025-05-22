@@ -4,12 +4,4 @@ function Home() {
   );
 }
 
-function teste() {
-  return;
-}
-
-function teste2() {
-  console.log("identação errada");
-}
-
 export default Home;
