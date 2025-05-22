@@ -1,6 +1,6 @@
-import database from "infra/database"; 
+import database from "infra/database";
 
-async function cleanDatabase(){
+async function cleanDatabase() {
   await database.query("drop schema public cascade; create schema public;");
 }
 

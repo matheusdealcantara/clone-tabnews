@@ -11,14 +11,16 @@ async function waitForAllServices() {
 
     async function fetchStatusPage() {
       const response = await fetch("http://localhost:3000/api/v1/status");
-      
+
       if (response.status !== 200) {
-        throw new Error(`Unexpected response status: ${response.status}. Web server not ready.`);
+        throw new Error(
+          `Unexpected response status: ${response.status}. Web server not ready.`,
+        );
       }
     }
   }
 }
 
 export default {
-  waitForAllServices
+  waitForAllServices,
 };
