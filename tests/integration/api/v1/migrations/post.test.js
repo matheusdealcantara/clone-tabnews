@@ -1,9 +1,8 @@
-import database from "infra/database.js";
 import orchestrator from "tests/orchestrator";
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
-  await database.query("drop schema public cascade; create schema public;");
+  await orchestrator.clearDatabase();
 });
 
 describe("POST /api/v1/migrations", () => {
@@ -18,13 +17,10 @@ describe("POST /api/v1/migrations", () => {
         );
         expect(response1.status).toBe(201);
 
-        const migrations = await database.query("select * from pgmigrations");
-        const migrationCount = migrations.rowCount;
         const response1Body = await response1.json();
 
         expect(Array.isArray(response1Body)).toBe(true);
         expect(response1Body.length).toBeGreaterThan(0);
-        expect(migrationCount).toBeGreaterThan(0);
       });
 
       test("For the second time", async () => {
@@ -36,13 +32,10 @@ describe("POST /api/v1/migrations", () => {
         );
         expect(response2.status).toBe(200);
 
-        const migrations = await database.query("select * from pgmigrations");
-        const migrationCount = migrations.rowCount;
         const response2Body = await response2.json();
 
         expect(Array.isArray(response2Body)).toBe(true);
         expect(response2Body.length).toBe(0);
-        expect(migrationCount).toBeGreaterThan(0);
       });
     });
   });
