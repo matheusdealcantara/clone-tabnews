@@ -21,11 +21,15 @@ function GetStatus() {
   });
 
   let updatedAtText = "Carregando...";
-  let dependencies = "Carregando...";
+  let versionText = "Carregando...";
+  let maxConnectionsText = "Carregando...";
+  let openedConnectionsText = "Carregando";
 
   if (!isLoading && data) {
     updatedAtText = new Date(data.updated_at).toLocaleString("pt-BR");
-    dependencies = data.dependencies;
+    versionText = data.dependencies.version;
+    maxConnectionsText = data.dependencies.max_connections;
+    openedConnectionsText = data.dependencies.opened_connections;
   }
 
   return (
@@ -34,9 +38,9 @@ function GetStatus() {
       <p>
         Banco de dados utilizado: PostgreSQL
         <pre>
-          <p>Versão: {dependencies.database.version}</p>
-          <p>Conexões permitidas: {dependencies.database.max_connections}</p>
-          <p>Conexões abertas: {dependencies.database.opened_connections}</p>
+          <p>Versão: {versionText}</p>
+          <p>Conexões permitidas: {maxConnectionsText}</p>
+          <p>Conexões abertas: {openedConnectionsText}</p>
         </pre>
       </p>
     </div>
