@@ -13,14 +13,13 @@ const defaultMigrationOptions = {
 async function listPendingMigrations() {
   let dbClient;
   dbClient = await database.getNewClient();
-  
+
   try {
-  
     const pendingMigrations = await migrationRunner({
       ...defaultMigrationOptions,
       dbClient,
     });
-    
+
     return pendingMigrations;
   } finally {
     await dbClient?.end();
@@ -30,25 +29,23 @@ async function listPendingMigrations() {
 async function runPendingMigrations() {
   let dbClient;
   dbClient = await database.getNewClient();
-  
+
   try {
-  
     const migratedMigrations = await migrationRunner({
       ...defaultMigrationOptions,
       dbClient,
       dryRun: false,
     });
-  
+
     return migratedMigrations;
   } finally {
     await dbClient?.end();
   }
 }
 
-
 const migrator = {
   listPendingMigrations,
-  runPendingMigrations
+  runPendingMigrations,
 };
 
 export default migrator;
