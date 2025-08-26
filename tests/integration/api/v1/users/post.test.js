@@ -40,18 +40,18 @@ describe("POST /api/v1/user", () => {
       expect(uuidVersion(responseBody.id)).toBe(4);
       expect(Date.parse(responseBody.created_at)).not.toBeNaN();
       expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
-    
-      const userInDatabase = await user.findOneByUsername('matheusdealcantara');
+
+      const userInDatabase = await user.findOneByUsername("matheusdealcantara");
       const correctPasswordMatch = await password.compare(
-        'senha123', 
-        userInDatabase.password
+        "senha123",
+        userInDatabase.password,
       );
-      
+
       const incorrectPasswordMatch = await password.compare(
-        'SenhaErrada', 
-        userInDatabase.password
+        "SenhaErrada",
+        userInDatabase.password,
       );
-      
+
       expect(correctPasswordMatch).toBe(true);
       expect(incorrectPasswordMatch).toBe(false);
     });
@@ -90,7 +90,7 @@ describe("POST /api/v1/user", () => {
       expect(response2Body).toEqual({
         name: "ValidationError",
         message: "O email informado já está sendo utilizado.",
-        action: "Utilize outro email para realizar o cadastro.",
+        action: "Utilize outro email para realizar esta operação.",
         status_code: 400,
       });
     });
@@ -129,7 +129,7 @@ describe("POST /api/v1/user", () => {
       expect(response2Body).toEqual({
         name: "ValidationError",
         message: "O username informado já está sendo utilizado.",
-        action: "Utilize outro username para realizar o cadastro.",
+        action: "Utilize outro username para realizar esta operação.",
         status_code: 400,
       });
     });
